@@ -11,7 +11,6 @@ describe('tooltip', function() {
   beforeEach(module('template/tooltip/tooltip-popup.html'));
 
   beforeEach(inject(function($rootScope, $compile) {
-    // we might move this tpl into an html file as well...
     elmBody = angular.element( 
       '<div><span tooltip="tooltip text">Selector Text</span></div>' 
     );
