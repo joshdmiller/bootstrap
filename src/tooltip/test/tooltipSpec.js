@@ -60,6 +60,23 @@ describe('tooltip', function() {
     expect( elmScope.placement ).toBe( "bottom" );
   }));
 
+  it('should work inside an ngRepeat', inject( function( $compile ) {
+    scope.items = [
+      { name: "One", tooltip: "First Tooltip" }
+    ];
+
+    elm = $compile( angular.element( 
+      '<li ng-repeat="item in items">'+
+        '<span tooltip="{{item.tooltip}}">{{item.name}}</span>'+
+      '</li>'
+    ) )( scope );
+
+    var tt = angular.element( elm.find('span')[0] );
+    tt.trigger( 'mouseenter' );
+    //expect( tt.text() ).toBe( scope.items[0].name );
+    //expect( tt.scope().tooltipTitle ).toBe( scope.items[0].tooltip );
+    tt.trigger( 'mouseleave' );
+  }));
 });
 
     
