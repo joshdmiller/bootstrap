@@ -121,6 +121,34 @@ describe('tooltip', function() {
 
     expect(elmBody.children().length).toBe(1);
   }));
+
+  it( 'should allow HTML in the tooltip text', inject( function ( $compile ) {
+    scope.content = "Contains a <b>bold</b> element";
+
+    elmBody = $compile( angular.element(
+      '<div><span tooltip="{{content}}">Selector text</span></div>'
+    ))( scope );
+    scope.$digest();
+
+    elmBody.find('span').trigger('mouseenter');
+    ttScope = angular.element( elmBody.children()[0] ).scope();
+
+    expect(ttScope.tt_tooltip).toBe(scope.content);
+  }));
+
+  it( 'should sanitize HTML in the tooltip text', inject( function ( $compile ) {
+    scope.content = "Contains an <b onmouseover=\"this.textContent='PWN3D!'\">unallowed</b> element.";  
+    
+    elmBody = $compile( angular.element(
+      '<div><span tooltip="{{content}}">Selector text</span></div>'
+    ))( scope );
+    scope.$digest();
+
+    elmBody.find('span').trigger('mouseenter');
+    ttScope = angular.element( elmBody.children()[0] ).scope();
+    
+    expect(ttScope.tt_tooltip).toBe("Contains an <b>unallowed</b> element.");
+  }));
 });
 
     

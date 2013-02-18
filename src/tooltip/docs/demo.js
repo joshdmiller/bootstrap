@@ -1,4 +1,4 @@
 var TooltipDemoCtrl = function ($scope) {
-  $scope.dynamicTooltip = "Hello, World!";
+  $scope.dynamicTooltip = "Hello, <i>World</i>!";
   $scope.dynamicTooltipText = "dynamic";
 };

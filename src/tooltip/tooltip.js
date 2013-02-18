@@ -3,7 +3,7 @@
  * function, placement as a function, inside, support for more triggers than
  * just mouse enter/leave, html tooltips, and selector delegatation.
  */
-angular.module( 'ui.bootstrap.tooltip', [] )
+angular.module( 'ui.bootstrap.tooltip', [ 'ngSanitize' ] )
 .directive( 'tooltipPopup', function () {
   return {
     restrict: 'EA',
@@ -12,7 +12,7 @@ angular.module( 'ui.bootstrap.tooltip', [] )
     templateUrl: 'template/tooltip/tooltip-popup.html'
   };
 })
-.directive( 'tooltip', [ '$compile', '$timeout', '$parse', '$window', function ( $compile, $timeout, $parse, $window) {
+.directive( 'tooltip', [ '$compile', '$timeout', '$parse', '$window', '$sanitize', function ( $compile, $timeout, $parse, $window, $sanitize) {
   
   var template = 
     '<tooltip-popup '+
@@ -30,7 +30,7 @@ angular.module( 'ui.bootstrap.tooltip', [] )
           transitionTimeout;
 
       attr.$observe( 'tooltip', function ( val ) {
-        scope.tt_tooltip = val;
+        scope.tt_tooltip = $sanitize( val );
       });
 
       attr.$observe( 'tooltipPlacement', function ( val ) {
