@@ -271,6 +271,8 @@ angular.module( 'ui.bootstrap.tooltip', [ 'ui.bootstrap.position' ] )
           if ( options.appendToBody ) {
             scope.$on('$locationChangeSuccess', hide);
           }
+          
+          scope.$on('$destroy', hide);
         }
       };
     };
